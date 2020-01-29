@@ -4,12 +4,12 @@ import createPerson from "../services/createPerson.service";
 
 const SWPeopleApiUrl = "https://swapi.co/api/people";
 
-async function* getAll({ limit }: { limit?: number }) {
-  let keepGoing = !limit ? true : false;
+async function* getAll({ page_limit }: { page_limit?: number }) {
+  let keepGoing = !page_limit ? true : false;
   let uri: string = SWPeopleApiUrl;
   let pageCount = 1;
 
-  while ((limit && pageCount <= limit) || keepGoing) {
+  while ((page_limit && pageCount <= page_limit) || keepGoing) {
     const results = await request({
       uri,
       json: true
@@ -28,12 +28,12 @@ async function* getAll({ limit }: { limit?: number }) {
 }
 
 const refreshPeople = async (req: Request, res: Response) => {
-  const { limit } = req.query;
+  const { page_limit } = req.query;
 
   const people: any[] = [];
 
   try {
-    for await (const results of getAll({ limit })) {
+    for await (const results of getAll({ page_limit })) {
       people.push(...results.results);
     };
   
