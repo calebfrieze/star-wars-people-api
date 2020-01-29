@@ -47,7 +47,7 @@ const createPerson = async (personBody: Person): Promise<Person> => {
 
   db.release();
 
-  return person[1];
+  return person[1][0];
 };
 
 export default createPerson;

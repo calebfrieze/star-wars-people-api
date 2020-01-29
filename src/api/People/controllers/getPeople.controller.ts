@@ -1,9 +1,18 @@
 import { Request, Response } from "express";
+import { getPeople } from "../services/getPeople.service";
 
-const getPeople = (req: Request, res: Response) => {
-  return res.status(200).json({
-    testing: 'true'
-  });
+const getPeopleController = async (req: Request, res: Response) => {
+  try {
+    const people = await getPeople();
+    
+    return res.status(200).json({
+      people
+    });
+  } catch (e) {
+    return res.status(500).json({
+      error: e.message
+    });
+  }
 };
 
-export default getPeople;
+export default getPeopleController;
