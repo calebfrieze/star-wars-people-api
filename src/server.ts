@@ -2,6 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 
 import People from "./api/People";
+import refreshPeople from "./api/People/controllers/refreshPeople.controller";
 
 const { env } = process;
 
@@ -12,6 +13,8 @@ const app = express();
 app.use(bodyParser.json());
 
 app.use("/people", People);
+
+app.use("/refresh-people", refreshPeople)
 
 export const startServer = () => {
   app.listen(PORT, () => {

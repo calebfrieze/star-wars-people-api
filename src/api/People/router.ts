@@ -1,10 +1,9 @@
 import { Router } from "express";
-import getPeople from "./getPeople";
-import getPerson from "./getPerson";
-import createPerson from "./createPerson";
-import updatePerson from "./updatePerson";
-import deletePerson from "./deletePerson";
-import refreshPeople from "./refreshPeople";
+import getPeople from "./controllers/getPeople.controller";
+import getPerson from "./controllers/getPerson.controller";
+import createPerson from "./controllers/createPerson.controller";
+import updatePerson from "./controllers/updatePerson.controller";
+import deletePerson from "./controllers/deletePerson.controller";
 
 const router = Router();
 
@@ -17,7 +16,5 @@ router.post("/", createPerson);
 router.put("/:id", updatePerson);
 
 router.delete("/:id", deletePerson);
-
-router.get("/refresh", refreshPeople);
 
 export default router;
