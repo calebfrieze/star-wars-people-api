@@ -3,20 +3,40 @@ import { getPeopleQuery } from "./getPeople.service";
 
 const createPersonQuery = `
 INSERT INTO people SET ?;
-${getPeopleQuery()} WHERE id = (SELECT id FROM people ORDER BY created DESC LIMIT 1);
+${getPeopleQuery()} WHERE person_id = (SELECT person_id FROM people ORDER BY created DESC LIMIT 1);
 `;
 
 const createPerson = async (personBody: any): Promise<any> => {
   const db = await getConnection({ multipleStatements: true });
 
+  const {
+    name,
+    height,
+    mass,
+    hair_color,
+    skin_color,
+    eye_color,
+    birth_year,
+    gender
+  } = personBody;
+
   const person = await db.query({
     sql: createPersonQuery,
-    values: personBody
+    values: {
+      name,
+      height,
+      mass,
+      hair_color,
+      skin_color,
+      eye_color,
+      birth_year,
+      gender
+    }
   });
 
   db.release();
 
-  return JSON.parse(person[1][0].person);
+  return person[1];
 };
 
 export default createPerson;
