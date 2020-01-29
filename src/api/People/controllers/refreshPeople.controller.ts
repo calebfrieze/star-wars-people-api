@@ -45,7 +45,7 @@ const refreshPeople = async (req: Request, res: Response) => {
   }
 
   return res.status(200).json({
-    refreshed: "ok refreshed"
+    message: "ok"
   });
 }
 
