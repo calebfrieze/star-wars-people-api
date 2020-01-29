@@ -1,12 +1,23 @@
 import { getConnection } from "../../../database";
 import { getPeopleQuery } from "./getPeople.service";
 
+export interface Person {
+  name: string;
+  height: string;
+  mass: string;
+  hair_color: string;
+  skin_color: string;
+  eye_color: string;
+  birth_year: string;
+  gender: string;
+}
+
 const createPersonQuery = `
 INSERT INTO people SET ?;
 ${getPeopleQuery()} WHERE person_id = (SELECT person_id FROM people ORDER BY created DESC LIMIT 1);
 `;
 
-const createPerson = async (personBody: any): Promise<any> => {
+const createPerson = async (personBody: Person): Promise<Person> => {
   const db = await getConnection({ multipleStatements: true });
 
   const {
